@@ -9,6 +9,12 @@
   scroll-behavior: smooth;
 }
 
+@layer base {
+  body {
+    @apply font-inter;
+  }
+}
+
 .carousel {
   @apply flex flex-col-reverse;
 }

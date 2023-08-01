@@ -31,7 +31,7 @@ function Home() {
 
             <h1 className='mt-4 text-6xl leading-[72px] font-bold tracking-[-1.2px] text-gray-900'>
               Unleash the Power of
-              <span className='text-primary'>PriceWise</span>
+              <span className='text-primary'> PriceWise</span>
             </h1>
 
             <p className='mt-6 text-xl leading-[30px] text-gray-600'>

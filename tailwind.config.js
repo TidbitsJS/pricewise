@@ -23,7 +23,11 @@ module.exports = {
       },
       maxWidth: {
         "10xl": '1440px'
-      }
+      },
+      fontFamily: {
+        inter: ['Inter', 'sans-serif'],
+        spaceGrotesk: ['Space Grotesk', 'sans-serif'],
+      },
     },
   },
   plugins: [],
