@@ -15,11 +15,14 @@ interface Product {
 }
 
 async function Home() {
-  const data = await scrapeProduct(
-    "https://www.amazon.in/Midnight-Library-Matt-Haig/dp/1786892723/ref=sr_1_1?keywords=midnight+library&qid=1690906920&sprefix=midn%2Caps%2C407&sr=8-1"
-  );
+  // const data = await scrapeProduct(
+  //   "https://www.amazon.in/Midnight-Library-Matt-Haig/dp/1786892723/ref=sr_1_1?keywords=midnight+library&qid=1690906920&sprefix=midn%2Caps%2C407&sr=8-1"
+  // );
 
-  console.log("data", data);
+  // console.log("data", data);
+
+  const data = await fetch("http://localhost:3000/api/scrape");
+  console.log("Result", { data });
 
   return (
     <>
