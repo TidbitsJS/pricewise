@@ -14,13 +14,15 @@ interface Product {
   id: number;
 }
 
+// Comment and uncomment to test different implementations
 async function Home() {
+  // Proxy Web Browser Call
   // const data = await scrapeProduct(
   //   "https://www.amazon.in/Midnight-Library-Matt-Haig/dp/1786892723/ref=sr_1_1?keywords=midnight+library&qid=1690906920&sprefix=midn%2Caps%2C407&sr=8-1"
   // );
-
   // console.log("data", data);
 
+  // Webunlocker Call
   const data = await fetch("http://localhost:3000/api/scrape");
   console.log("Result", { data });
 

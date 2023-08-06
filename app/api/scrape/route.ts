@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import axios from "axios";
 
+// Bright Data Webunlocker implementation
+// If you're looking for Proxy Browser implementation, check /lib/scrape (a server action)
+// We're calling this function in /app/page.tsx (SSR)
 export async function GET(request: Request) {
   let username = "brd-customer-hl_5dd3b64f-zone-web_unlocker1";
   let password = "pp29jcs6cz32";
