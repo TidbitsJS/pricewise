@@ -1,9 +1,9 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
-import { Searchbar, HeroCarousel } from '@/components';
-import { products } from '@/constants';
-import { config } from '@/config';
+import { Searchbar, HeroCarousel } from "@/components";
+import { products } from "@/constants";
+import { config } from "@/config";
 
 interface Product {
   title: string;
@@ -17,7 +17,7 @@ interface Product {
 async function Home() {
   const result = await fetch(`${config.serverUrl}/api/scrape/amazon/`);
   const data = await result.json();
-  console.log('====== data', data);
+  console.log("====== data", data);
 
   return (
     <>
@@ -126,7 +126,7 @@ async function Home() {
                   </p>
 
                   <p className="text-black text-lg font-semibold">
-                    <span>{product.currency}</span>{' '}
+                    <span>{product.currency}</span>{" "}
                     <span>{product.currentPrice}</span>
                   </p>
                 </div>
