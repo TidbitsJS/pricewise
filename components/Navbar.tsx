@@ -6,7 +6,7 @@ import { navIcons } from "@/constants";
 const Navbar = () => {
   return (
     <header className='w-full'>
-      <nav className='flex justify-between items-center px-6 md:px-[52px] py-4'>
+      <nav className='nav'>
         <Link href='/' className='flex items-center gap-1'>
           <Image
             src='/assets/icons/logo.svg'
@@ -15,7 +15,7 @@ const Navbar = () => {
             height={27}
           />
 
-          <p className='font-spaceGrotesk text-[21px] text-secondary font-bold'>
+          <p className='nav-logo'>
             Price<span className='text-primary'>Wise</span>
           </p>
         </Link>

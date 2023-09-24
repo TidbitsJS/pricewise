@@ -1,16 +1,31 @@
 "use client";
-// import "react-toastify/dist/ReactToastify.css";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
+
+import { scrapeAndStoreProduct } from "@/lib/actions";
 
 const Searchbar = () => {
   const router = useRouter();
+  const pathName = usePathname();
   const [searchPrompt, setSearchPrompt] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsLoading(true);
+
+    const product = await scrapeAndStoreProduct(searchPrompt, pathName);
+
+    if (product) {
+      const parsedProduct = JSON.parse(product);
+
+      if (parsedProduct._id) {
+        router.push(`/products/${parsedProduct._id}`);
+      }
+    }
+
+    setIsLoading(false);
   };
 
   return (
@@ -20,13 +35,13 @@ const Searchbar = () => {
         placeholder='Enter Product Link'
         value={searchPrompt}
         onChange={(e) => setSearchPrompt(e.target.value)}
-        className='max-w-[360px] w-full p-3 border border-gray-300 rounded-lg shadow-xs text-base text-gray-500 focus:outline-none'
+        className='searchbar-input'
       />
 
       <button
         type='submit'
         disabled={searchPrompt === ""}
-        className='bg-gray-900 border border-gray-900 rounded-lg shadow-xs px-5 py-3 text-white text-base font-semibold hover:opacity-90 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-40'
+        className='searchbar-btn'
       >
         {isLoading ? "Searching..." : "Search"}
       </button>

@@ -8,7 +8,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#E43030",
+        primary: {
+          DEFAULT: "#E43030",
+          "orange": "#D48D3B",
+          "green": "#3E9242"
+        },
         secondary: "#282828",
         "gray-200": "#EAECF0",
         "gray-300": "D0D5DD",
@@ -16,6 +20,9 @@ module.exports = {
         "gray-600": "#475467",
         "gray-700": "#344054",
         "gray-900": "#101828",
+        "white-100": "#F4F4F4",
+        "white-200": "#EDF0F8",
+        "black-100": "#3D4258",
         "neutral-black": "#23263B",
       },
       boxShadow: {
@@ -28,6 +35,9 @@ module.exports = {
         inter: ['Inter', 'sans-serif'],
         spaceGrotesk: ['Space Grotesk', 'sans-serif'],
       },
+      borderRadius: {
+        10: "10px"
+      }
     },
   },
   plugins: [],

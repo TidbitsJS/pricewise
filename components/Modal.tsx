@@ -1,19 +1,29 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { FormEvent, Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
-function Modal() {
-  const router = useRouter();
+import { addUserEmailToProduct } from "@/lib/actions";
 
+type ModalProps = {
+  productId: string;
+};
+
+function Modal({ productId }: ModalProps) {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [userEmailInput, setUserEmailInput] = useState<string>("");
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setSubmitting(true);
+
+    await addUserEmailToProduct(productId, userEmailInput);
+
+    setSubmitting(false);
+    setIsOpen(false);
+    setUserEmailInput("");
   };
 
   function closeModal() {
@@ -26,20 +36,12 @@ function Modal() {
 
   return (
     <>
-      <button
-        type='button'
-        onClick={openModal}
-        className='py-4 px-4 bg-secondary hover:bg-opacity-70 rounded-[30px] text-white text-lg font-semibold'
-      >
+      <button type='button' onClick={openModal} className='btn'>
         Track
       </button>
 
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog
-          as='div'
-          className='fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-60'
-          onClose={closeModal}
-        >
+        <Dialog as='div' className='dialog-container' onClose={closeModal}>
           <div className='min-h-screen px-4 text-center'>
             <Transition.Child
               as={Fragment}
@@ -69,10 +71,10 @@ function Modal() {
               leaveFrom='opacity-100 scale-100'
               leaveTo='opacity-0 scale-95'
             >
-              <div className=' p-6  bg-white inline-block w-full max-w-md my-8 overflow-hidden text-left align-middle transition-all transform  shadow-xl rounded-2xl'>
+              <div className='dialog-content'>
                 <div className='flex flex-col'>
                   <div className='flex justify-between'>
-                    <div className='p-3 border border-gray-200 rounded-[10px]'>
+                    <div className='p-3 border border-gray-200 rounded-10'>
                       <Image
                         src='/assets/icons/logo.svg'
                         alt='logo'
@@ -91,9 +93,9 @@ function Modal() {
                     />
                   </div>
 
-                  <h4 className='text-secondary text-lg leading-[24px] font-semibold mt-4'>
+                  <h4 className='dialog-head_text'>
                     Stay updated with product pricing alerts right in your
-                    inbox!{" "}
+                    inbox!
                   </h4>
 
                   <p className='text-sm text-gray-600 mt-2'>
@@ -108,7 +110,7 @@ function Modal() {
                   >
                     Email address
                   </label>
-                  <div className='px-5 py-3 mt-3 flex items-center gap-2 border border-gray-300 rounded-[27px]'>
+                  <div className='dialog-input_container'>
                     <Image
                       src='/assets/icons/mail.svg'
                       alt='mail'
@@ -123,17 +125,15 @@ function Modal() {
                       value={userEmailInput}
                       onChange={(e) => setUserEmailInput(e.target.value)}
                       placeholder='contact@jsmastery.pro'
-                      className='flex-1 pl-1 border-none text-gray-500 text-base focus:outline-none border border-gray-300 rounded-[27px] shadow-xs'
+                      className='dialog-input'
                     />
                   </div>
 
                   <button
                     type='submit'
-                    className={`px-5 py-3 text-white text-base font-semibold border border-secondary bg-secondary rounded-lg mt-8 ${
-                      submitting && "opacity-50"
-                    }`}
+                    className={`dialog-btn ${submitting && "opacity-50"}`}
                   >
-                    Track Product
+                    {submitting ? "...Loading" : "Track Product "}
                   </button>
                 </form>
               </div>

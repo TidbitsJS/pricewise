@@ -8,7 +8,7 @@ import { heroImages } from "@/constants";
 
 const HeroCarousel = () => {
   return (
-    <div className='relative sm:px-10 py-5 sm:pt-20 pb-5 max-w-[560px] w-full bg-[#F2F4F7] rounded-[30px]  sm:mx-auto'>
+    <div className='hero-carousel'>
       <Carousel
         showThumbs={false}
         autoPlay
@@ -34,7 +34,7 @@ const HeroCarousel = () => {
         alt='hero'
         width={175}
         height={175}
-        className='max-xl:hidden absolute -left-[15%]  top-2/3'
+        className='max-xl:hidden absolute -left-[15%] bottom-0 z-0'
       />
     </div>
   );
