@@ -91,8 +91,6 @@ export async function scrapeAndStoreProduct(productUrl: string, path: string) {
       { upsert: true, new: true }
     );
 
-    console.log({ path, upesertedProduct });
-
     revalidatePath(`/products/${upesertedProduct._id}`);
     return JSON.stringify(upesertedProduct);
   } catch (error: any) {
