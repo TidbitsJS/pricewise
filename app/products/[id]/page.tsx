@@ -16,10 +16,11 @@ type ProductDetailsProps = {
 
 async function ProductDetails({ params }: ProductDetailsProps) {
   const { id } = params;
-  const product = await getProductById(id);
-  const similarProducts = await getProducts(id);
 
+  const product = await getProductById(id);
   if (!product) redirect("/");
+
+  const similarProducts = await getProducts(id);
 
   return (
     <section className='product-container'>
