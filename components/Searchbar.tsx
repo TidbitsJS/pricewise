@@ -16,13 +16,11 @@ const Searchbar = () => {
     setIsLoading(true);
 
     const product = await scrapeAndStoreProduct(searchPrompt, pathName);
+    console.log({ product });
 
     if (product) {
       const parsedProduct = JSON.parse(product);
-
-      if (parsedProduct._id) {
-        router.push(`/products/${parsedProduct._id}`);
-      }
+      router.push(`/products/${parsedProduct._id}`);
     }
 
     setIsLoading(false);

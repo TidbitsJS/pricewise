@@ -54,6 +54,7 @@ export async function getSimilarProducts(productId: string) {
 
 export async function scrapeAndStoreProduct(productUrl: string, path: string) {
   if (!productUrl) return;
+
   try {
     connectToDB();
 
