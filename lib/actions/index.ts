@@ -24,6 +24,7 @@ export async function getProductById(productId: string) {
 export async function getAllProducts() {
   try {
     connectToDB();
+
     const products = await Product.find({});
     return products;
   } catch (error: any) {
@@ -34,21 +35,16 @@ export async function getAllProducts() {
 export async function getSimilarProducts(productId: string) {
   try {
     connectToDB();
+
     const currentProduct = await Product.findById(productId);
 
     if (!currentProduct) {
       return null;
     }
 
-    const filterCriteria = {
+    const similarProducts = await Product.find({
       _id: { $ne: productId },
-      $or: [
-        { averagePrice: { $gte: currentProduct.averagePrice - 100 } }, // Similar average price within a range
-        { title: { $regex: currentProduct.title, $options: "i" } }, // Similar title (case-insensitive)
-      ],
-    };
-
-    const similarProducts = await Product.find(filterCriteria).limit(3);
+    }).limit(3);
 
     return similarProducts;
   } catch (error: any) {
