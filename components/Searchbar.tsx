@@ -5,13 +5,24 @@ import { FormEvent, useState } from "react";
 
 import { scrapeAndStoreProduct } from "@/lib/actions";
 
-function isValidAmazonProductLink(link: string) {
-  // Define a regular expression pattern to match Amazon product URLs
-  const amazonProductRegex =
-    /^(https?:\/\/)?(www\.)?amazon\.(com|in|co\.uk|ca|com\.au|de|fr|es|it|nl|jp|com\.mx|com\.br|ae|sg|com\.tr|com\.sa|com\.eg|se|com\.sg|com\.my|com\.ph|cl|com\.co|com\.ar|com\.tw|com\.cn|com\.hk|com\.sg|com\.id|com\.vn|com\.th)\/[A-Za-z0-9-]+\/dp\/[A-Za-z0-9]+(\/)?/i;
+export function isValidAmazonProductURL(url: string) {
+  try {
+    const parsedURL = new URL(url);
+    const hostname = parsedURL.hostname;
 
-  // Use the test method to check if the link matches the pattern
-  return amazonProductRegex.test(link);
+    // Check if the hostname contains "amazon.com" or "amazon." followed by a country code
+    if (
+      hostname.includes("amazon.com") ||
+      hostname.includes("amazon.") ||
+      hostname.endsWith("amazon")
+    ) {
+      return true;
+    }
+  } catch (error) {
+    // URL parsing error, not a valid URL
+  }
+
+  return false;
 }
 
 const Searchbar = () => {
@@ -23,7 +34,7 @@ const Searchbar = () => {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const isValidLink = isValidAmazonProductLink(searchPrompt);
+    const isValidLink = isValidAmazonProductURL(searchPrompt);
     if (!isValidLink) return alert("Please provide valid amazon link");
 
     try {
