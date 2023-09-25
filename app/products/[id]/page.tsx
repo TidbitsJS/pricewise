@@ -8,7 +8,7 @@ import ProductCard from "@/components/ProductCard";
 import PriceInfoCard from "@/components/PriceInfoCard";
 
 import { formatNumber } from "@/lib/utils";
-import { getProductById, getProducts } from "@/lib/actions";
+import { getProductById, getSimilarProducts } from "@/lib/actions";
 
 type ProductDetailsProps = {
   params: { id: string };
@@ -20,7 +20,7 @@ async function ProductDetails({ params }: ProductDetailsProps) {
   const product = await getProductById(id);
   if (!product) redirect("/");
 
-  const similarProducts = await getProducts(id);
+  const similarProducts = await getSimilarProducts(id);
 
   return (
     <section className='product-container'>

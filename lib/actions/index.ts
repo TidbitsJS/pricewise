@@ -21,15 +21,19 @@ export async function getProductById(productId: string) {
   }
 }
 
-export async function getProducts(productId?: string) {
+export async function getAllProducts() {
   try {
     connectToDB();
+    const products = await Product.find({});
+    return products;
+  } catch (error: any) {
+    throw new Error(`Failed to get all products: ${error.message}`);
+  }
+}
 
-    if (!productId) {
-      const products = await Product.find({});
-      return products;
-    }
-
+export async function getSimilarProducts(productId: string) {
+  try {
+    connectToDB();
     const currentProduct = await Product.findById(productId);
 
     if (!currentProduct) {

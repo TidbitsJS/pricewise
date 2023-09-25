@@ -1,12 +1,12 @@
 import Image from "next/image";
 
 import { Product } from "@/types";
-import { getProducts } from "@/lib/actions";
+import { getAllProducts } from "@/lib/actions";
 import ProductCard from "@/components/ProductCard";
 import { Searchbar, HeroCarousel } from "@/components";
 
 export default async function Page() {
-  const allProducts = await getProducts();
+  const allProducts = await getAllProducts();
 
   return (
     <>
@@ -16,8 +16,8 @@ export default async function Page() {
             <p className='small-text'>
               Smart Shopping Starts Here:
               <Image
-                src="assets/icons/arrow-right.svg"
-                alt="arrow right"
+                src='assets/icons/arrow-right.svg'
+                alt='arrow right'
                 width={16}
                 height={16}
               />
@@ -25,7 +25,7 @@ export default async function Page() {
 
             <h1 className='head-text'>
               Unleash the Power of
-              <span className="text-primary"> PriceWise</span>
+              <span className='text-primary'> PriceWise</span>
             </h1>
 
             <p className='mt-6'>
