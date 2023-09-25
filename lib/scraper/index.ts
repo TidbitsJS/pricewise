@@ -6,12 +6,7 @@ import { extractPrice, extractCurrency, extractDescription } from "@/lib/utils";
 export async function scrapeAmazonProduct(url: string) {
   if (!url) return;
 
-  // TEST URL DATA
-  // https://www.amazon.in/dp/B09V4FZN1L => B09G9C7C71
-  // https://www.amazon.in/Apple-MacBook-Chip-13-inch-256GB/dp/B08N5W4NNB?ref_=ast_sto_dp&th=1&psc=1 => B08N5W4NNB
-  // https://www.amazon.in/Apple-2023-MacBook-Laptop-chip/dp/B0C75GV58R?ref_=ast_sto_dp&th=1&psc=1 => B0C75GV58R
-  const dateTime = new Date().toLocaleString();
-
+  // Bright Data proxy configuration
   let username = String(process.env.BRIGHT_DATA_USERNAME);
   let password = String(process.env.BRIGHT_DATA_PASSWORD);
   let port = 22225;
@@ -27,6 +22,7 @@ export async function scrapeAmazonProduct(url: string) {
   };
 
   try {
+    // Fetch the Amazon product page
     const response = await axios.get(url, options);
     const $ = cheerio.load(response.data);
 
@@ -64,7 +60,7 @@ export async function scrapeAmazonProduct(url: string) {
     // product description
     const description = extractDescription($);
 
-    // Construct data
+    // Construct data object with scraped information
     const data = {
       url,
       currency: currency || "$",
