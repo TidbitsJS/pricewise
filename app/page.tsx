@@ -5,6 +5,8 @@ import { getAllProducts } from "@/lib/actions";
 import ProductCard from "@/components/ProductCard";
 import { Searchbar, HeroCarousel } from "@/components";
 
+export const revalidate = 0; // revalidate at most every hour
+
 export default async function Page() {
   const allProducts = await getAllProducts();
 
